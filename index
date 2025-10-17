@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cuadro Comparativo RSE</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            padding: 40px;
+            animation: fadeIn 0.8s ease-in;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        h1 {
+            text-align: center;
+            color: #2d3748;
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.02); }
+        }
+        
+        .subtitle {
+            text-align: center;
+            color: #718096;
+            font-size: 1.2em;
+            margin-bottom: 40px;
+            font-weight: 300;
+        }
+        
+        .table-container {
+            overflow-x: auto;
+            margin: 30px 0;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+            background: white;
+        }
+        
+        thead {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+        
+        th {
+            padding: 20px;
+            text-align: left;
+            font-weight: 600;
+            font-size: 1.3em;
+            letter-spacing: 1px;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+        
+        th:first-child {
+            border-radius: 15px 0 0 0;
+            width: 15%;
+        }
+        
+        th:nth-child(2) {
+            width: 42.5%;
+        }
+        
+        th:last-child {
+            border-radius: 0 15px 0 0;
+            width: 42.5%;
+        }
+        
+        td {
+            padding: 15px 20px;
+            border-bottom: 1px solid #e2e8f0;
+            vertical-align: top;
+            transition: all 0.3s ease;
+        }
+        
+        tr:hover td {
+            background-color: #f7fafc;
+            transform: scale(1.01);
+        }
+        
+        .dimension {
+            font-weight: bold;
+            color: #4a5568;
+            background: linear-gradient(90deg, #edf2f7 0%, transparent 100%);
+            font-size: 1.1em;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            position: sticky;
+            left: 0;
+            z-index: 5;
+        }
+        
+        .beneficios {
+            background-color: #f0fff4;
+            border-left: 4px solid #48bb78;
+            position: relative;
+            padding-left: 25px;
+        }
+        
+        .barreras {
+            background-color: #fff5f5;
+            border-left: 4px solid #f56565;
+            position: relative;
+            padding-left: 25px;
+        }
+        
+        .beneficios:hover {
+            background-color: #e6ffed;
+            box-shadow: inset 0 0 20px rgba(72, 187, 120, 0.1);
+        }
+        
+        .barreras:hover {
+            background-color: #ffebeb;
+            box-shadow: inset 0 0 20px rgba(245, 101, 101, 0.1);
+        }
+        
+        ul {
+            margin: 0;
+            padding-left: 20px;
+            list-style: none;
+        }
+        
+        li {
+            margin-bottom: 12px;
+            line-height: 1.6;
+            color: #4a5568;
+            position: relative;
+            padding-left: 25px;
+            transition: all 0.3s ease;
+        }
+        
+        li:hover {
+            transform: translateX(5px);
+            color: #2d3748;
+        }
+        
+        .beneficios li:before {
+            content: "✓";
+            color: #48bb78;
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+            font-size: 1.2em;
+        }
+        
+        .barreras li:before {
+            content: "⚠";
+            color: #f56565;
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+            font-size: 1.2em;
+        }
+        
+        strong {
+            color: #2d3748;
+            font-weight: 600;
+        }
+        
+        .analysis-section {
+            margin-top: 50px;
+            padding: 30px;
+            background: linear-gradient(135deg, #f6f9fc 0%, #e9ecef 100%);
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+        }
+        
+        .analysis-title {
+            color: #2d3748;
+            font-size: 1.8em;
+            margin-bottom: 20px;
+            text-align: center;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .analysis-content {
+            columns: 2;
+            column-gap: 40px;
+            text-align: justify;
+            line-height: 1.8;
+            color: #4a5568;
+        }
+        
+        .analysis-content p {
+            margin-bottom: 15px;
+            break-inside: avoid;
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+            }
+            
+            h1 {
+                font-size: 1.8em;
+            }
+            
+            th {
+                font-size: 1em;
+                padding: 15px 10px;
+            }
+            
+            td {
+                padding: 10px;
+            }
+            
+            .analysis-content {
+                columns: 1;
+            }
+            
+            li {
+                font-size: 0.9em;
+            }
+        }
+        
+        .footer {
+            text-align: center;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 2px solid #e2e8f0;
+            color: #718096;
+            font-size: 0.9em;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Cuadro Comparativo de Implementación RSE</h1>
+        <p class="subtitle">Análisis de Beneficios y Barreras - Alpina Productos Alimenticios S.A.</p>
+        
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>DIMENSIÓN</th>
+                        <th>BENEFICIOS</th>
+                        <th>BARRERAS</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="dimension">Económica-Financiera</td>
+                        <td class="beneficios">
+                            <ul>
+                                <li><strong>Ahorro en energía:</strong> 24% de energía renovable propia reduce costos eléctricos</li>
+                                <li><strong>Mayor valor de marca:</strong> #1 marca alimenticia preferida por colombianos</li>
+                                <li><strong>Acceso a inversión:</strong> Calificación AAA de Fitch atrae inversionistas</li>
+                                <li><strong>Ventas por innovación:</strong> 13-14% de ingresos vienen de productos nuevos</li>
+                                <li><strong>Menos riesgos legales:</strong> Cumplimiento ambiental evita multas costosas</li>
+                            </ul>
+                        </td>
+                        <td class="barreras">
+                            <ul>
+                                <li><strong>Inversión millonaria:</strong> $13 mil millones COP anuales en sostenibilidad</li>
+                                <li><strong>Impuestos crecientes:</strong> 20% de impuesto a productos ultraprocesados (2025)</li>
+                                <li><strong>Caída en ventas:</strong> -7.7% en ventas por crisis del sector lácteo</li>
+                                <li><strong>Competencia importada:</strong> Productos extranjeros subsidiados más baratos</li>
+                                <li><strong>Costos de certificación:</strong> Verificaciones anuales obligatorias costosas</li>
+                            </ul>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="dimension">Capital Humano</td>
+                        <td class="beneficios">
+                            <ul>
+                                <li><strong>Mejor lugar para trabajar:</strong> 4.3/5 estrellas, 83% recomienda la empresa</li>
+                                <li><strong>Retención de talento:</strong> 45% de vacantes se llenan internamente</li>
+                                <li><strong>Equidad de género:</strong> 47% de líderes son mujeres (Sello Equipares)</li>
+                                <li><strong>Menos accidentes:</strong> 63% reducción en accidentes laborales</li>
+                            </ul>
+                        </td>
+                        <td class="barreras">
+                            <ul>
+                                <li><strong>Cambio cultural difícil:</strong> 4,000 ganaderos tradicionales resisten innovación</li>
+                                <li><strong>Capacitación costosa:</strong> Aprox. 64 horas de formación anual requeridas</li>
+                                <li><strong>Falta de profesionales:</strong> Se necesitan numerosos perfiles técnicos</li>
+                                <li><strong>Coordinación compleja:</strong> Gestionar 3,673 empleados en 5 plantas</li>
+                            </ul>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="dimension">Reputacional</td>
+                        <td class="beneficios">
+                            <ul>
+                                <li><strong>Líder absoluto:</strong> #2 mejor reputación en Colombia (MERCO)</li>
+                                <li><strong>Marca amada:</strong> 85% de hogares compran Alpina</li>
+                                <li><strong>Confianza total:</strong> 78 años de historia y presencia nacional</li>
+                                <li><strong>Reconocimientos múltiples:</strong> Premios de ANDI, MinCiencias, ICONTEC</li>
+                            </ul>
+                        </td>
+                        <td class="barreras">
+                            <ul>
+                                <li><strong>Greenwashing:</strong> Riesgo de ser acusado de RSE falsa</li>
+                                <li><strong>Expectativas altas:</strong> Presión por mantener liderazgo sostenible</li>
+                                <li><strong>Escrutinio constante:</strong> Auditorías y verificaciones permanentes</li>
+                                <li><strong>Comunicación difícil:</strong> Explicar impacto real a consumidores</li>
+                            </ul>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="dimension">Innovación</td>
+                        <td class="beneficios">
+                            <ul>
+                                <li><strong>Impulso innovador:</strong> Desarrollo de productos sostenibles</li>
+                                <li><strong>Economía circular:</strong> Nuevos modelos de negocio</li>
+                                <li><strong>Anticipación regulatoria:</strong> Preparación para futuras normativas</li>
+                                <li><strong>Ventaja first-mover:</strong> Liderazgo en sostenibilidad</li>
+                            </ul>
+                        </td>
+                        <td class="barreras">
+                            <ul>
+                                <li><strong>Inversión en I+D:</strong> Altos costos de investigación</li>
+                                <li><strong>Incertidumbre tecnológica:</strong> Riesgo de obsolescencia</li>
+                                <li><strong>Tiempo de desarrollo:</strong> Procesos largos de innovación</li>
+                                <li><strong>Capacidades técnicas:</strong> Falta de expertise especializado</li>
+                            </ul>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="dimension">Entorno Externo</td>
+                        <td class="beneficios">
+                            <ul>
+                                <li><strong>Apoyo gubernamental:</strong> Incentivos y subsidios disponibles</li>
+                                <li><strong>Alianzas estratégicas:</strong> Colaboración con ONGs y academia</li>
+                                <li><strong>Acceso a redes:</strong> Participación en iniciativas globales</li>
+                                <li><strong>Reconocimientos:</strong> Premios y certificaciones valoradas</li>
+                            </ul>
+                        </td>
+                        <td class="barreras">
+                            <ul>
+                                <li><strong>Marco regulatorio débil:</strong> Falta de incentivos claros</li>
+                                <li><strong>Cadena de suministro:</strong> Proveedores sin estándares</li>
+                                <li><strong>Mercado inmaduro:</strong> Consumidores no valoran RSE</li>
+                                <li><strong>Infraestructura limitada:</strong> Falta servicios de apoyo</li>
+                            </ul>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+
+</html>
+
